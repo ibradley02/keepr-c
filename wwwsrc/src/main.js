@@ -3,6 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
+
+var server = axios.create({
+  baseURL: window.location.host.includes("localhost") ? '//localhost:5000/' : '/',
+  timeout: 2000, 
+  withCredentials: true
+})
 
 Vue.config.productionTip = false
 
