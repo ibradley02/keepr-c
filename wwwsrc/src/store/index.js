@@ -3,7 +3,7 @@ import vue from 'vue'
 import vuex from 'vuex'
 import router from 'router'
 
-let base = window.location.host.indexOf('localhost') > -1 ? '//localhost:3000/' : '/'
+let base = window.location.host.indexOf('localhost') > -1 ? '//localhost:5000/' : '/'
 
 let api = axios.create({
   baseURL: base + 'api/',
@@ -21,6 +21,7 @@ vue.use(vuex)
 
 var store = new vuex.Store({
   state: {
+      error: {},
       user: {}
   },
   mutations: {
@@ -33,17 +34,19 @@ var store = new vuex.Store({
   },
   actions: {
       login({ commit, dispatch }, payload){
-        auth.post('login', payload)
+        debugger
+        auth.post('account/login', payload)
             .then(res => {
                 console.log(res)
                 commit('setUser', res.data)
             })
             .catch( err => {
-                commit('handleError', err.response.data)
+                commit('handleError', err.message)
             })
       },
       register({ commit, dispatch }, payload){
-        auth.post('register', payload)
+          debugger
+        auth.post('account/register', payload)
             .then(res => {
                 console.log(res)
                 commit('setUser', res.data.data)

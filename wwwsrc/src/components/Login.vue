@@ -1,14 +1,14 @@
 <template>
     <div>
         <div v-if="loginForm">
-            <form @submit="login">
+            <form @submit="Login">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text">
+                    <input type="text" v-model="login.email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password">
+                    <input type="password" v-model="login.password">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Login</button>
@@ -16,18 +16,18 @@
             </form>
         </div>
         <div v-else>
-            <form @submit="register">
+            <form @submit="Register">
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="text">
+                    <label for="email">Email</label>
+                    <input type="text" v-model="register.email">
                 </div>
                 <div class="form-group">
-                    <label for="password">Username:</label>
-                    <input type="password">
+                    <label for="password">Username</label>
+                    <input type="text" v-model="register.username">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password">
+                    <label for="password">Password</label>
+                    <input type="password" v-model="register.password">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Register</button>
@@ -97,5 +97,11 @@
 
     a {
         color: #42b983;
+    }
+    label, input {
+        display: block;
+        float: none;
+        margin: 0 auto;
+        text-align: center;
     }
 </style>
