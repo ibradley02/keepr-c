@@ -1,12 +1,15 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <navbar></navbar>
+    <search></search>
     <login></login>
   </div>
 </template>
 
 <script>
+  import Search from './Search'
   import Login from './Login'
+  import Navbar from './Navbar'
   export default {
     name: 'Home',
     data() {
@@ -15,7 +18,9 @@
       }
     },
     components: {
-      Login
+      Login,
+      Navbar,
+      Search
     },
     methods: {
     }
