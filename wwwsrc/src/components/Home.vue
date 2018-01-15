@@ -2,6 +2,7 @@
   <div class="hello">
     <navbar></navbar>
     <search></search>
+    <keep></keep>
     <login></login>
   </div>
 </template>
@@ -10,6 +11,7 @@
   import Search from './Search'
   import Login from './Login'
   import Navbar from './Navbar'
+  import Keep from './Keep'
   export default {
     name: 'Home',
     data() {
@@ -20,7 +22,8 @@
     components: {
       Login,
       Navbar,
-      Search
+      Search,
+      Keep
     },
     methods: {
     }

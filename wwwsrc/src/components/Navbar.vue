@@ -2,9 +2,14 @@
     <div class="row">
         <nav class="navbar navbar-default navbar-fixed-top myNavbar">
             <div class="col-sm-8">
-                <h4 class="pull-left">Keepr</h4>
+                <router-link :to="'/'">
+                    <h4 class="pull-left">Keepr</h4>
+                </router-link>
             </div>
             <div class="col-sm-4" v-if="user.id">
+                <button type="button" class="btn" data-toggle="modal" data-target="#keepModal">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
                 <router-link :to="'/profile'">
                     <h4>Welcome, {{user.username}}</h4>
                 </router-link>
