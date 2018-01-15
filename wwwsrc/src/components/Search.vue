@@ -17,7 +17,6 @@
         name: 'search',
         data() {
             return {
-
             }
         }
     }

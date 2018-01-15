@@ -4,7 +4,11 @@
             <div class="col-sm-8">
                 <h4 class="pull-left">Keepr</h4>
             </div>
-            <div class="col-sm-4 login">
+            <div class="col-sm-4" v-if="user.id">
+                <h4>Welcome, {{user.username}}</h4>
+                <button @click="Logout">Logout</button>
+            </div>
+            <div class="col-sm-4 login" v-else>
                 <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
             </div>
         </nav>
@@ -22,13 +26,23 @@
         },
         components: {
             Login
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
+            }
+        },
+        methods: {
+            Logout() {
+                this.$store.dispatch('logout')
+            }
         }
     }
 </script>
 
-<style>
+<style scoped>
     .myNavbar {
-        background-color: rgb(0, 1, 3);
+        background-color: rgb(0, 1, 3) !important;
         color: white;
         display: flex;
         margin-bottom: 0px;
@@ -50,5 +64,12 @@
     .login {
         margin: auto auto;
         color: black;
+    }
+    h4, button {
+        display: inline-block;
+    }
+    button {
+        color: black;
+        margin-left: 1vw;
     }
 </style>

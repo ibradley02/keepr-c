@@ -93,6 +93,13 @@ namespace keepr_c.Controllers
             }
             return "How did you even get here?";
         }
+       [HttpDelete("logout")]
+       public async void Logout()
+       {
+         
+           await HttpContext.SignOutAsync();
+         
+       }
 
 
 
