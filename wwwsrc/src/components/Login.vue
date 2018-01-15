@@ -4,11 +4,11 @@
             <form @submit="Login">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" v-model="login.email">
+                    <input type="text" v-model="login.Email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" v-model="login.password">
+                    <input type="password" v-model="login.Password">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Login</button>
@@ -19,15 +19,15 @@
             <form @submit="Register">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" v-model="register.email">
+                    <input type="text" v-model="register.Email">
                 </div>
                 <div class="form-group">
                     <label for="password">Username</label>
-                    <input type="text" v-model="register.username">
+                    <input type="text" v-model="register.Username">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" v-model="register.password">
+                    <input type="password" v-model="register.Password">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Register</button>
@@ -45,13 +45,13 @@
             return {
                 loginForm: true,
                 login: {
-                    email: '',
-                    password: ''
+                    Email: '',
+                    Password: ''
                 },
                 register: {
-                    email: '',
-                    username: '',
-                    password: ''
+                    Email: '',
+                    Username: '',
+                    Password: ''
                 }
             }
         },
@@ -62,16 +62,16 @@
             Login() {
                 this.$store.dispatch('login', this.login)
                 this.login = {
-                    email: '',
-                    password: ''
+                    Email: '',
+                    Password: ''
                 }
             },
             Register() {
                 this.$store.dispatch('register', this.register)
                 this.register = {
-                    email: '',
-                    username: '',
-                    password: ''
+                    Email: '',
+                    Username: '',
+                    Password: ''
                 }
             }
         }

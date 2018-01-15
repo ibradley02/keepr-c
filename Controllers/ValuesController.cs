@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace keepr_c.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
