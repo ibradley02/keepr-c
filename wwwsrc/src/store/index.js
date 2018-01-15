@@ -1,6 +1,7 @@
 import axios from 'axios'
 import vue from 'vue'
 import vuex from 'vuex'
+import Router from 'vue-router'
 import router from 'router'
 
 let base = window.location.host.indexOf('localhost') > -1 ? '//localhost:5000/' : '/'
@@ -64,6 +65,7 @@ var store = new vuex.Store({
             .then(res => {
                 console.log(res)
                 commit('setUser', {})
+                router.push({path:"/"})
             })
       }
   }

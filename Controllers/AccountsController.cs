@@ -58,7 +58,11 @@ namespace keepr_c.Controllers
             var id = user.Identity.Name;
             // var email = user.Claims.Where(c => c.Type == ClaimTypes.Email)
             //        .Select(c => c.Value).SingleOrDefault();
+            if(id != null)
+            {
             return _db.GetUserById(id);
+            }
+            return null;
         }
 
         [Authorize]

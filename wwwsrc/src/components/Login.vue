@@ -12,7 +12,7 @@
                     </div>
                     <div class="modal-body">
                         <div v-if="loginForm">
-                            <form @submit="Login">
+                            <form @submit.prevent="Login">
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="text" v-model="login.Email">
@@ -27,7 +27,7 @@
                             </form>
                         </div>
                         <div v-else>
-                            <form @submit="Register">
+                            <form @submit.prevent="Register">
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="text" v-model="register.Email">

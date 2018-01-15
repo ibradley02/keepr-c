@@ -5,7 +5,9 @@
                 <h4 class="pull-left">Keepr</h4>
             </div>
             <div class="col-sm-4" v-if="user.id">
-                <h4>Welcome, {{user.username}}</h4>
+                <router-link :to="'/profile'">
+                    <h4>Welcome, {{user.username}}</h4>
+                </router-link>
                 <button @click="Logout">Logout</button>
             </div>
             <div class="col-sm-4 login" v-else>
