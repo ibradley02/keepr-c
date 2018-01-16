@@ -2,19 +2,19 @@ using System;
 
 namespace keepr_c.Models
 {
-    public class User
+    public class Vault
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
-        internal UserReturnModel GetReturnModel()
+        internal VaultReturnModel GetReturnModel()
         {
-            return new UserReturnModel()
+            return new VaultReturnModel()
             {
                 Id = Id,
-                Username = Username,
-                Email = Email
+                Name = Name,
+                Description = Description
             };
         }
     }

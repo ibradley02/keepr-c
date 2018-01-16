@@ -2,16 +2,16 @@ using System;
 
 namespace keepr_c.Models
 {
-    public class User
+    public class Keep
     {
         public int Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
-        internal UserReturnModel GetReturnModel()
+        internal KeepReturnModel GetReturnModel()
         {
-            return new UserReturnModel()
+            return new KeepReturnModel()
             {
                 Id = Id,
                 Username = Username,

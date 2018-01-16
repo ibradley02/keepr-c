@@ -36,6 +36,7 @@ var store = new vuex.Store({
         }
     },
     actions: {
+        //USER AUTH
         login({ commit, dispatch }, payload) {
             auth.post('accounts/login', payload)
                 .then(res => {
@@ -69,6 +70,35 @@ var store = new vuex.Store({
                     commit('setUser', {})
                     router.push({ name: "Home" })
                 })
+        },
+        //VAULTS
+        createVault({ commit, dispatch }) {
+
+        },
+        updateVault({ commit, dispatch }) {
+
+        },
+        deleteVault({ commit, dispatch }) {
+
+        },
+        getVaults({ commit, dispatch }) {
+
+        },
+        //KEEPS
+        createKeep({ commit, dispatch }) {
+
+        },
+        updateKeep({ commit, dispatch }) {
+
+        },
+        deleteKeep({ commit, dispatch }) {
+
+        },
+        getKeeps({ commit, dispatch }) {
+            
+        },
+        getKeepsByVault({ commit, dispatch }) {
+            
         }
     }
 })
