@@ -1,9 +1,7 @@
 import axios from 'axios'
 import vue from 'vue'
 import vuex from 'vuex'
-import Router from 'vue-router'
-import router from 'router'
-import vuerouter from '../router/index'
+import vuerouter from '../router/'
 
 let base = window.location.host.indexOf('localhost') > -1 ? '//localhost:5000/' : '/'
 
