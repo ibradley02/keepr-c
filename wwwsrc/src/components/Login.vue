@@ -6,11 +6,8 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div class="col-sm-6">
-                            <a @click="toggleLoginForm" class="modal-title">Login </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a @click="toggleLoginForm" class="modal-title">Register</a>
+                        <div class="col-sm-12">
+                            <h4>Account</h4>
                         </div>
                     </div>
                     <div class="modal-body">
@@ -23,7 +20,7 @@
                                     <input type="password" placeholder="Password" v-model="login.Password">
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-default">Login</button>
+                                    <button type="submit" class="btn btn-default btn-success">Login</button>
                                 </div>
                             </form>
                         </div>
@@ -39,19 +36,20 @@
                                     <input type="password" placeholder="Password" v-model="register.Password">
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-default">Register</button>
+                                    <button type="submit" class="btn btn-default btn-success">Register</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>
+                        <a class="col-sm-10 text-footer" v-if="loginForm" @click="toggleLoginForm">Don't have an account? Click to Register.</a>
+                        <a class="col-sm-10 text-footer" v-else @click="toggleLoginForm">Already have an account? Click to Login.</a>
+                        <button type="button" class="btn btn-default btn-danger col-sm-2" data-dismiss="modal">Close</button>
                     </div>
                 </div>
 
             </div>
         </div>
-        <!-- <button @click="toggleLoginForm">Don't have an account? Click to Register.</button> -->
     </div>
 </template>
 
@@ -98,11 +96,22 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .fontAwesome {
-  font-family: Helvetica, 'FontAwesome', sans-serif;
+  font-family: Helvetica, "FontAwesome", sans-serif;
 }
 .modal-dialog {
-    margin: 25vh auto 0px auto
+  margin: 25vh auto 0px auto;
 }
+.modal-header {
+  background-color: darkgray;
+}
+.btn-success {
+  width: 80%;
+}
+.text-footer {
+  color: black;
+  text-align: center;
+}
+
 h1,
 h2 {
   font-weight: normal;
@@ -119,7 +128,7 @@ li {
 }
 
 a {
-  color: #42b983;
+  color: white;
 }
 
 label,
@@ -128,5 +137,6 @@ input {
   float: none;
   margin: 0 auto;
   text-align: center;
+  width: 80%;
 }
 </style>
