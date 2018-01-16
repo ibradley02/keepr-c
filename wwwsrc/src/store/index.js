@@ -46,10 +46,12 @@ var store = new vuex.Store({
         login({ commit, dispatch }, payload) {
             auth.post('accounts/login', payload)
                 .then(res => {
+                    debugger
                     console.log(res)
                     commit('setUser', res.data)
                 })
                 .catch(err => {
+                    console.log(err)
                     commit('handleError', err.message)
                 })
         },
@@ -92,8 +94,14 @@ var store = new vuex.Store({
         updateVault({ commit, dispatch }) {
 
         },
-        deleteVault({ commit, dispatch }) {
-
+        deleteVault({ commit, dispatch }, payload) {
+            api.delete('vaults/' + payload)
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
         },
         getVaults({ commit, dispatch }) {
 
@@ -109,8 +117,14 @@ var store = new vuex.Store({
                 })
         },
         //KEEPS
-        createKeep({ commit, dispatch }) {
-
+        createKeep({ commit, dispatch }, payload) {
+            api.post('keeps', payload)
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
         },
         updateKeep({ commit, dispatch }) {
 

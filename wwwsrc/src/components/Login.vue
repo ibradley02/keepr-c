@@ -14,7 +14,7 @@
                         <div v-if="loginForm">
                             <form @submit.prevent="Login">
                                 <div class="form-group">
-                                    <input type="text" placeholder="E-mail">                                
+                                    <input type="text" placeholder="E-mail" v-model="login.Email">                                
                                 </div>
                                 <div class="form-group">
                                     <input type="password" placeholder="Password" v-model="login.Password">

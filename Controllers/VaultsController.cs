@@ -45,7 +45,7 @@ namespace keepr_c.Controllers
             }
             return null;
         }
-        
+        ///api/vaults/:id
        [HttpDelete("{id}")]
        public string Delete(int id)
        {

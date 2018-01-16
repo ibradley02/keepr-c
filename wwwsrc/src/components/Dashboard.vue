@@ -5,15 +5,8 @@
             <div class="panel-heading">
                 <h2>{{user.username}}'s Vault</h2>
             </div>
-            <div class="panel-body row">
-                <div v-for="item in vaults" class="col-sm-4" >
-                    <div class="vault-heading">
-                        <h3>{{item.name}}</h3>
-                    </div>
-                    <div class="vault-body">
-                        <h5>{{item.description}}</h5>
-                    </div>
-                </div>
+            <div class="panel-body">
+                <vault></vault>
             </div>
         </div>
     </div>
@@ -21,44 +14,26 @@
 
 <script>
     import Navbar from './Navbar'
+    import Vault from './Vault'
     export default {
         name: "Dashboard",
         data() {
             return {
-                profile: {
-                    Email: '',
-                    Username: '',
-                    Password: ''
-                }
             }
         },
         methods: {
-            submitProfile() {
-                this.$store.dispatch('updateProfile' )
-                this.profile = {
-                    Email: '',
-                    Username: '',
-                    Password: ''
-                }
-            }
         },
         mounted() {
             this.$store.dispatch('authenticate')
-            this.$store.dispatch('getVaultsById', this.user.id)
         },
         computed: {
             user() {
                 return this.$store.state.user
-            },
-            vaults() {
-                return this.$store.state.vaults
-            },
-            showProfile() {
-                return this.$store.state.showProfile
             }
         },
         components: {
-            Navbar
+            Navbar,
+            Vault
         }
     }  
 </script>

@@ -51,9 +51,9 @@ namespace keepr_c.Repositories
         public string FindByIdAndRemove(int id)
         {
             var success = _db.Execute(@"
-                DELETE FROM vaults WHERE Id = @id
+                DELETE FROM vaults WHERE Id = @Id
             ", id);
-            return success > 0 ? "success" : "umm that didnt work";
+            return success > 0 ? "success" : "not success";
         }
     }
 }

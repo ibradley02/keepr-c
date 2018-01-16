@@ -29,7 +29,10 @@
                             <form @submit.prevent="addKeep">
                                 <div class="form-group">
                                     <label for="keep">Keep</label>
-                                    <input type="text">
+                                    <input type="text" placeholder="Title" v-model="keep.Name">
+                                    <input type="text" placeholder="Image URL" v-model="keep.Image">
+                                    <input type="text" placeholder="Description" v-model="keep.Description">
+                                    <input type="text" placeholder="Tags" v-model="keep.Tags">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit">Submit</button>
@@ -55,6 +58,13 @@
                 vault: {
                     Name: '',
                     Description: ''
+                },
+                keep: {
+                    Name: '',
+                    Image: '',
+                    Description: '',
+                    UserId: '',
+                    Tags: ''
                 }
             }
         },
@@ -81,6 +91,23 @@
                     Name: '',
                     Description: '',
 
+                }
+            },
+            addKeep() {
+                var createKeep = {
+                    UserId: this.user.id,
+                    Name: this.keep.Name,
+                    Image: this.keep.Image,
+                    Description: this.keep.Description,
+                    Tags: this.keep.Tags
+                }
+                this.$store.dispatch('createKeep', createKeep)
+                this.keep = {
+                    Name: '',
+                    Image: '',
+                    Description: '',
+                    UserId: '',
+                    Tags: ''
                 }
             }
         }
