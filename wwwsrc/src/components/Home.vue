@@ -2,8 +2,8 @@
   <div class="hello">
     <navbar></navbar>
     <search></search>
+    <create></create>
     <keep></keep>
-    <login></login>
   </div>
 </template>
 
@@ -12,6 +12,7 @@
   import Login from './Login'
   import Navbar from './Navbar'
   import Keep from './Keep'
+  import Create from './Create'
   export default {
     name: 'Home',
     data() {
@@ -19,11 +20,17 @@
         msg: 'Welcome to Keepr'
       }
     },
+    computed: {
+    },
     components: {
       Login,
       Navbar,
       Search,
-      Keep
+      Keep,
+      Create
+    },
+    mounted() {
+      this.$store.dispatch('getKeeps')
     },
     methods: {
     }
@@ -47,5 +54,10 @@
 
   a {
     color: #42b983;
+  }
+
+  .keep{
+    color: black;
+    margin-top: 15vh;
   }
 </style>

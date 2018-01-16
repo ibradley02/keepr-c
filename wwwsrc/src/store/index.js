@@ -121,6 +121,7 @@ var store = new vuex.Store({
             api.post('keeps', payload)
                 .then(res => {
                     console.log(res)
+                    dispatch('getKeeps')
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -133,7 +134,14 @@ var store = new vuex.Store({
 
         },
         getKeeps({ commit, dispatch }) {
-            
+            api('keeps')
+                .then(res => {
+                    console.log(res)
+                    commit('setKeeps', res.data)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
         },
         getKeepsByVault({ commit, dispatch }) {
             
