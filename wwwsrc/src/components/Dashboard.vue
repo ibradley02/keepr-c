@@ -3,11 +3,10 @@
         <navbar></navbar>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2>Profile</h2>
+                <h2>{{user.username}}'s Dashboard</h2>
             </div>
             <div class="panel-body">
-                <h3>Email: {{user.email}}</h3>
-                <h3>Username: {{user.username}}</h3>
+                
             </div>
         </div>
     </div>
@@ -16,7 +15,7 @@
 <script>
     import Navbar from './Navbar'
     export default {
-        name: "profile",
+        name: "Dashboard",
         data() {
             return {
                 profile: {
@@ -38,6 +37,7 @@
         },
         mounted() {
             this.$store.dispatch('authenticate')
+            this.$store.dispatch('getVaultsById', this.user.id)
         },
         computed: {
             user() {

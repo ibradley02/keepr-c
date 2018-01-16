@@ -12,13 +12,16 @@
                     </div>
                     <div class="modal-body">
                         <div v-if="createForm">
-                            <form @submit.prevent="addKeep">
+                            <form @submit.prevent="addVault">
                                 <div class="form-group">
                                     <label for="vault">Vault</label>
-                                    <input type="text">
+                                    <input type="text" placeholder="Name" v-model="vault.Name">
+                                    <input type="text" placeholder="Description" v-model="vault.Description">
+                                </div>
+                                <div>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit">Submit</button>
+                                    <button type="submit">Create</button>
                                 </div>
                             </form>
                         </div>
@@ -35,7 +38,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -48,7 +51,16 @@
         name: 'Keep',
         data() {
             return {
-                createForm: true
+                createForm: true,
+                vault: {
+                    Name: '',
+                    Description: ''
+                }
+            }
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
             }
         },
         methods: {
@@ -58,6 +70,19 @@
             toggleLoginForm() {
                 this.loginForm = !this.loginForm;
             },
+            addVault() {
+                var createVault = {
+                    userId: this.user.id,
+                    name: this.vault.Name,
+                    description: this.vault.Description
+                };
+                this.$store.dispatch('createVault', createVault)
+                this.vault = {
+                    Name: '',
+                    Description: '',
+
+                }
+            }
         }
     }
 </script>

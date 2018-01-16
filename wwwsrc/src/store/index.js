@@ -23,7 +23,9 @@ vue.use(vuerouter)
 var store = new vuex.Store({
     state: {
         error: {},
-        user: {}
+        user: {},
+        vaults: {},
+        keeps: {}
     },
     mutations: {
         handleError(state, err) {
@@ -31,6 +33,12 @@ var store = new vuex.Store({
         },
         setUser(state, user) {
             state.user = user
+        },
+        setKeeps(state, keeps){
+            state.keeps = keeps
+        },
+        setVaults(state, vaults){
+            state.vaults = vaults
         }
     },
     actions: {
@@ -70,8 +78,16 @@ var store = new vuex.Store({
                 })
         },
         //VAULTS
-        createVault({ commit, dispatch }) {
-
+        createVault({ commit, dispatch }, payload) {
+            debugger
+            api.post('vaults', payload)
+                .then(res => {
+                    console.log(res)
+                    commit('setVaults', res.data)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
         },
         updateVault({ commit, dispatch }) {
 
@@ -81,6 +97,16 @@ var store = new vuex.Store({
         },
         getVaults({ commit, dispatch }) {
 
+        },
+        getVaultsById({ commit, dispatch }, payload ){
+            api('vaults', payload)
+                .then(res => {
+                    console.log(res)
+                    commit('setVaults', res.data)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
         },
         //KEEPS
         createKeep({ commit, dispatch }) {

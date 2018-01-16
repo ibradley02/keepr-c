@@ -10,10 +10,10 @@
                 <button type="button" class="btn" data-toggle="modal" data-target="#keepModal">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
-                <router-link :to="'/profile'">
+                <router-link :to="'/dashboard'">
                     <h4>Welcome, {{user.username}}</h4>
                 </router-link>
-                <button @click="Logout">Logout</button>
+                <button class="btn btn-lg" @click="Logout">Logout</button>
             </div>
             <div class="col-sm-4 login" v-else>
                 <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>

@@ -18,6 +18,7 @@ namespace keepr_c
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         private readonly string _connectionString;
 
         public Startup(IConfiguration configuration)
@@ -26,7 +27,6 @@ namespace keepr_c
             _connectionString = configuration.GetSection("DB").GetValue<string>("MySQLConnectionString");
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -57,6 +57,7 @@ namespace keepr_c
             services.AddMvc();
             services.AddTransient<IDbConnection>(x => CreateDbContext());
             services.AddTransient<UserRepository>();
+            services.AddTransient<VaultRepository>();
         }
 
         private IDbConnection CreateDbContext()

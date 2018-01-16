@@ -1,84 +1,55 @@
-// namespace keepr_c.Controllers
-// {
-//     [Route("[controller]")]
-//     public class AccountsController : Controller
-//     {
-//         private readonly UserRepository _db;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using keepr_c.Models;
+using keepr_c.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
-//         public AccountsController(UserRepository repo)
-//         {
-//             _db = repo;
-//         }
+namespace keepr_c.Controllers
+{
+    [Route("api/[controller]")]
+    public class VaultsController : Controller
+    {
+        private readonly VaultRepository db;
 
-//         [HttpPost("Vaults")]
-//         public async Task<UserReturnModel> Register([FromBody]RegisterUserModel creds)
-//         {
-//             if (ModelState.IsValid)
-//             {
-//                 UserReturnModel user = _db.Register(creds);
-//                 if (user != null)
-//                 {
-//                     ClaimsPrincipal principal = user.SetClaims();
-//                     await HttpContext.SignInAsync(principal);
-//                     return user;
-//                 }
-//             }
-//             return null;
-//         }
+        public VaultsController(VaultRepository repo)
+        {
+            db = repo;
+        }
 
-//         [HttpGet("Vaults")]
-//         public VaultsReturnModel Authenticate()
-//         {
-//             var user = HttpContext.User;
-//             var id = user.Identity.Name;
-//             if(id != null)
-//             {
-//             return _db.GetUserById(id);
-//             }
-//             return null;
-//         }
+        [HttpGet]
+        public IEnumerable<Vault> Get()
+        {
+            return db.GetAll();
+        }
 
-//         [Authorize]
-//         [HttpPut]
-//         public VaultReturnModel UpdateVault([FromBody]VaultReturnModel vault)
-//         {
-//             var name = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Name)
-//                    .Select(c => c.Value).SingleOrDefault();
-//             var sessionUser = _db.GetUserByName(name);
+        [HttpGet("{id}")]
+        public Vault Get(int id)
+        {
+            return db.GetById(id);
+        }
 
-//             if (sessionUser.Id == user.Id)
-//             {
-//                 return _db.UpdateUser(user);
-//             }
-//             return null;
-//         }
+        [HttpPost]
+        public Vault Post([FromBody]Vault vault)
+        {
+            return db.Add(vault);
+        }
 
-//         [Authorize]
-//         [HttpPut("change-password")]
-//         public string ChangePassword([FromBody]ChangeUserPasswordModel user)
-//         {
-//             if (ModelState.IsValid)
-//             {
-//                 var email = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Email)
-//                        .Select(c => c.Value).SingleOrDefault();
-//                 var sessionUser = _db.GetUserByEmail(email);
-
-//                 if (sessionUser.Id == user.Id)
-//                 {
-//                     return _db.ChangeUserPassword(user);
-//                 }
-//             }
-//             return "How did you even get here?";
-//         }
-//        [HttpDelete("Vaults/:id")]
-//        public async void Logout()
-//        {
-         
-//            await HttpContext.SignOutAsync();
-         
-//        }
-
-
-
-//     }
-// }
+        [HttpPut("{id}")]
+        public Vault Put(int id, [FromBody]Vault vault)
+        {
+            if(ModelState.IsValid)
+            {
+                return db.GetOneByIdAndUpdate(id, vault);
+            }
+            return null;
+        }
+        
+       [HttpDelete("{id}")]
+       public string Delete(int id)
+       {
+           return db.FindByIdAndRemove(id); 
+       }
+    }
+}

@@ -102,8 +102,5 @@ namespace keepr_c.Controllers
            await HttpContext.SignOutAsync();
          
        }
-
-
-
     }
 }
