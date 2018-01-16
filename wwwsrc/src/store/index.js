@@ -24,8 +24,8 @@ var store = new vuex.Store({
     state: {
         error: {},
         user: {},
-        vaults: {},
-        keeps: {}
+        vaults: [],
+        keeps: []
     },
     mutations: {
         handleError(state, err) {
