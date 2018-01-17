@@ -37,7 +37,11 @@ var store = new vuex.Store({
             state.keeps = keeps
         },
         setVaults(state, vaults) {
-            state.vaults = vaults
+            if(vaults.id){
+                state.vaults.push(vaults)
+            }else{
+                state.vaults = vaults
+            }
         }
     },
     actions: {
@@ -65,6 +69,7 @@ var store = new vuex.Store({
                 .then(res => {
                     commit('setUser', res.data)
                     dispatch('getVaultsById', res.data.id)
+                    router.push({ name: "Dashboard"})
                 })
                 .catch(err => {
                     router.push({ name: "Home" })
@@ -99,9 +104,11 @@ var store = new vuex.Store({
                 })
         },
         deleteVault({ commit, dispatch }, payload) {
-            api.delete('vaults/' + payload)
+            debugger
+            api.delete('vaults/' + payload.id)
                 .then(res => {
                     console.log(res)
+                    dispatch('getVaultsById', payload.userId)
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -120,7 +127,6 @@ var store = new vuex.Store({
         getVaultsById({ commit, dispatch }, payload) {
             api('vaults/' + payload)
                 .then(res => {
-                    // debugger
                     console.log(res)
                     commit('setVaults', res.data)
                 })
@@ -146,6 +152,7 @@ var store = new vuex.Store({
             api.delete('keeps/' + payload)
                 .then(res => {
                     console.log(res)
+                    dispatch('getKeeps')
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -164,6 +171,7 @@ var store = new vuex.Store({
         getKeepsByVault({ commit, dispatch }) {
 
         }
+        //VaultKeeps
     }
 })
 

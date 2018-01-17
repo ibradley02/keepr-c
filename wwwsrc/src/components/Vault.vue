@@ -3,7 +3,9 @@
         <div v-for="item in vaults" class="col-sm-4">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <button class="pull-right" @click="deleteVault(item.id)"><i class="fa fa-trash"></i></button>
+                    <button class="pull-right" @click="deleteVault(item.id)">
+                        <i class="fa fa-trash"></i>
+                    </button>
                     <h3>{{item.name}}</h3>
                 </div>
                 <div class="panel-body">
@@ -21,14 +23,15 @@
             }
         },
         methods: {
-            deleteVault(id){
-                this.$store.dispatch('deleteVault', id)
+            deleteVault(id) {
+                var update = {
+                    userId: this.user.id,
+                    id: id
+                };
+                this.$store.dispatch('deleteVault', update)
 
             }
         },
-        // mounted() {
-        //     this.$store.dispatch('getVaultsById', this.user.id)
-        // },
         computed: {
             user() {
                 return this.$store.state.user

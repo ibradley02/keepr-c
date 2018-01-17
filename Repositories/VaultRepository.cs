@@ -22,7 +22,7 @@ namespace keepr_c.Repositories
 
         public Vault GetById(int id)
         {
-            return _db.QueryFirstOrDefault<Vault>($"SELECT * FROM vaults WHERE id = @id", id);
+            return _db.QueryFirstOrDefault<Vault>($"SELECT * FROM vaults WHERE userId = {id}", id);
         }
 
         public Vault Add(Vault vault)
@@ -50,9 +50,8 @@ namespace keepr_c.Repositories
 
         public string FindByIdAndRemove(int id)
         {
-            var success = _db.Execute(@"
-                DELETE FROM vaults WHERE Id = @Id
-            ", id);
+            var success = _db.Execute($@"
+                DELETE FROM vaults WHERE Id = {id};");
             return success > 0 ? "success" : "not success";
         }
     }

@@ -52,9 +52,8 @@ namespace keepr_c.Repositories
 
         public string FindByIdAndRemove(int id)
         {
-            var success = _db.Execute(@"
-                DELETE FROM keeps WHERE Id = @Id
-            ", id);
+            var success = _db.Execute($@"
+                DELETE FROM keeps WHERE Id = {id};");
             return success > 0 ? "success" : "not success";
         }
     }
