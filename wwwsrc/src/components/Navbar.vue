@@ -7,7 +7,7 @@
                 </router-link>
             </div>
             <div class="col-sm-4" v-if="user.id">
-                <button type="button" class="btn" data-toggle="modal" data-target="#keepModal">
+                <button type="button" class="btn" data-toggle="modal" data-target="#createModal">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
                 <router-link :to="'/dashboard'">

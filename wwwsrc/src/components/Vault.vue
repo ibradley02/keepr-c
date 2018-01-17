@@ -1,12 +1,14 @@
 <template>
     <div>
         <div v-for="item in vaults" class="col-sm-4">
-            <div class="vault-heading">
-                <h3>{{item.name}}</h3>
-            </div>
-            <div class="vault-body">
-                <h5>{{item.description}}</h5>
-                <button @click="deleteVault(item.id)"><i class="fa fa-trash"></i></button>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <button class="pull-right" @click="deleteVault(item.id)"><i class="fa fa-trash"></i></button>
+                    <h3>{{item.name}}</h3>
+                </div>
+                <div class="panel-body">
+                    <h5>{{item.description}}</h5>
+                </div>
             </div>
         </div>
     </div>
@@ -25,7 +27,7 @@
             }
         },
         mounted() {
-            this.$store.dispatch('getVaultsById', this.user.id)
+            this.$store.dispatch('getVaults')
         },
         computed: {
             user() {

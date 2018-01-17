@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <!-- Modal -->
-        <div id="keepModal" class="modal fade" role="dialog">
+        <div id="createModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -74,7 +74,7 @@
             }
         },
         methods: {
-            toggleForm(){
+            toggleForm() {
                 this.createForm = !this.createForm
             },
             toggleLoginForm() {
@@ -116,6 +116,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .modal-dialog {
+        margin: 25vh auto 0px auto;
+    }
+
     h1,
     h2 {
         font-weight: normal;

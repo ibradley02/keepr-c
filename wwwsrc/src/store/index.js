@@ -1,7 +1,7 @@
 import axios from 'axios'
 import vue from 'vue'
 import vuex from 'vuex'
-import vuerouter from '../router/'
+import router from '../router/'
 
 let base = window.location.host.indexOf('localhost') > -1 ? '//localhost:5000/' : '/'
 
@@ -18,7 +18,7 @@ let auth = axios.create({
 })
 
 vue.use(vuex)
-vue.use(vuerouter)
+vue.use(router)
 
 var store = new vuex.Store({
     state: {
@@ -34,10 +34,10 @@ var store = new vuex.Store({
         setUser(state, user) {
             state.user = user
         },
-        setKeeps(state, keeps){
+        setKeeps(state, keeps) {
             state.keeps = keeps
         },
-        setVaults(state, vaults){
+        setVaults(state, vaults) {
             state.vaults = vaults
         }
     },
@@ -46,7 +46,6 @@ var store = new vuex.Store({
         login({ commit, dispatch }, payload) {
             auth.post('accounts/login', payload)
                 .then(res => {
-                    debugger
                     console.log(res)
                     commit('setUser', res.data)
                 })
@@ -81,7 +80,6 @@ var store = new vuex.Store({
         },
         //VAULTS
         createVault({ commit, dispatch }, payload) {
-            debugger
             api.post('vaults', payload)
                 .then(res => {
                     console.log(res)
@@ -92,7 +90,13 @@ var store = new vuex.Store({
                 })
         },
         updateVault({ commit, dispatch }) {
-
+            api.put('vaults/' + payload)
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
         },
         deleteVault({ commit, dispatch }, payload) {
             api.delete('vaults/' + payload)
@@ -104,11 +108,19 @@ var store = new vuex.Store({
                 })
         },
         getVaults({ commit, dispatch }) {
-
-        },
-        getVaultsById({ commit, dispatch }, payload ){
-            api('vaults', payload)
+            api('vaults/')
                 .then(res => {
+                    console.log(res)
+                    commit('setVaults', res.data)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+        getVaultsById({ commit, dispatch }, payload) {
+            api('vaults/' + payload)
+                .then(res => {
+                    debugger
                     console.log(res)
                     commit('setVaults', res.data)
                 })
@@ -130,8 +142,14 @@ var store = new vuex.Store({
         updateKeep({ commit, dispatch }) {
 
         },
-        deleteKeep({ commit, dispatch }) {
-
+        deleteKeep({ commit, dispatch }, payload) {
+            api.delete('keeps/' + payload)
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
         },
         getKeeps({ commit, dispatch }) {
             api('keeps')
@@ -144,7 +162,7 @@ var store = new vuex.Store({
                 })
         },
         getKeepsByVault({ commit, dispatch }) {
-            
+
         }
     }
 })

@@ -1,12 +1,29 @@
 <template>
     <div>
         <navbar></navbar>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>{{user.username}}'s Vault</h2>
-            </div>
-            <div class="panel-body">
-                <vault></vault>
+        <create></create>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="title">
+                    <h3>Welcome to the Dashboard. Here you can create, manage, and delete your Vaults and Keeps</h3>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Your Dashboard</h2>
+                                <button @click="viewToggle" v-if="vault.show">View Keeps</button>
+                                <button @click="viewToggle" v-else>View Vaults</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body" v-if="vault.show">
+                        <vault></vault>
+                    </div>
+                    <div class="panel-body" v-else>
+                        <keep></keep>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -15,13 +32,21 @@
 <script>
     import Navbar from './Navbar'
     import Vault from './Vault'
+    import Create from './Create'
+    import Keep from './Keep'
     export default {
         name: "Dashboard",
         data() {
             return {
+                vault: {
+                    show: true
+                }
             }
         },
         methods: {
+            viewToggle() {
+                this.vault.show = !this.vault.show
+            }
         },
         mounted() {
             this.$store.dispatch('authenticate')
@@ -33,16 +58,19 @@
         },
         components: {
             Navbar,
-            Vault
+            Vault,
+            Create,
+            Keep
         }
     }  
 </script>
 
 <style scoped>
-    .vault-heading{
-        display: inline-block;
+    .panel{
+        margin-top: 5vh;
     }
-    .vault-body{
-        display: inline-block;
+    .title{
+        margin-top: 5vh;
+        background-color: rgba(128, 0, 128, 0.315);
     }
 </style>

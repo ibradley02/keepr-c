@@ -3,6 +3,7 @@
     <navbar></navbar>
     <search></search>
     <create></create>
+    <login></login>
     <keep></keep>
   </div>
 </template>
