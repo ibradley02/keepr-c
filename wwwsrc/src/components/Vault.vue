@@ -26,9 +26,9 @@
 
             }
         },
-        mounted() {
-            this.$store.dispatch('getVaults')
-        },
+        // mounted() {
+        //     this.$store.dispatch('getVaultsById', this.user.id)
+        // },
         computed: {
             user() {
                 return this.$store.state.user

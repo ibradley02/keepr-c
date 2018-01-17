@@ -48,9 +48,6 @@
                 this.vault.show = !this.vault.show
             }
         },
-        mounted() {
-            this.$store.dispatch('authenticate')
-        },
         computed: {
             user() {
                 return this.$store.state.user
@@ -71,6 +68,6 @@
     }
     .title{
         margin-top: 5vh;
-        background-color: rgba(128, 0, 128, 0.315);
+        background-color: rgba(137, 43, 226, 0.527);
     }
 </style>

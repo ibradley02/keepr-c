@@ -18,7 +18,6 @@ let auth = axios.create({
 })
 
 vue.use(vuex)
-vue.use(router)
 
 var store = new vuex.Store({
     state: {
@@ -65,9 +64,10 @@ var store = new vuex.Store({
             auth('accounts/authenticate')
                 .then(res => {
                     commit('setUser', res.data)
+                    dispatch('getVaultsById', res.data.id)
                 })
                 .catch(err => {
-                    commit('handleError', err)
+                    router.push({ name: "Home" })
                 })
         },
         logout({ commit, dispatch }) {
@@ -120,7 +120,7 @@ var store = new vuex.Store({
         getVaultsById({ commit, dispatch }, payload) {
             api('vaults/' + payload)
                 .then(res => {
-                    debugger
+                    // debugger
                     console.log(res)
                     commit('setVaults', res.data)
                 })
