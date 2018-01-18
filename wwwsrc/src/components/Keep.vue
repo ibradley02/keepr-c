@@ -16,43 +16,43 @@
                         <h5>{{item.description}}</h5>
                     </div>
                     <div class="panel-footer">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#vaultKeepModal">Keep</button>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#vaultKeepModal" @click="addActiveKeep(item.id)">Keep</button>
                         <h5>Tags:
                             <a>{{item.tags}}</a>
                         </h5>
                     </div>
                 </div>
             </div>
-            <div id="vaultKeepModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div class="col-sm-12">
-                                <h4>Add Keep To Vault</h4>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-                            <form @submit.prevent="addKeepToVault">
-                                <div class="form-group">
-                                    <div class="dropdown-style" title="choose category">
-                                        <select class="form-control text-center" v-model="tempVault.vaultId">
-                                            <option class="col-sm-12" selected disabled>Select Vault</option>
-                                            <option class="col-sm-12" v-for="vault in vaults" :value="vault.id">{{vault.name}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <button @click="addKeepToVault(item.id)">Keep</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-danger col-sm-12" data-dismiss="modal">Close</button>
+        </div>
+        <div id="vaultKeepModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="col-sm-12">
+                            <h4>Add Keep To Vault</h4>
                         </div>
                     </div>
-
+                    <div class="modal-body">
+                        <form @submit.prevent="addKeepToVault">
+                            <div class="form-group">
+                                <div class="dropdown-style" title="choose category">
+                                    <select class="form-control text-center" v-model="tempVault.vaultId">
+                                        <option class="col-sm-12" selected disabled>Select Vault</option>
+                                        <option class="col-sm-12" v-for="vault in vaults" :value="vault.id">{{vault.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button>Keep</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-danger col-sm-12" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -71,17 +71,19 @@
             deleteKeep(id) {
                 this.$store.dispatch('deleteKeep', id)
             },
-            addKeepToVault(id) {
-                debugger
+            addKeepToVault() {
                 var newVault = {
                     UserId: this.user.id,
-                    KeepId: id,
+                    KeepId: this.activeKeep.id,
                     VaultId: this.tempVault.vaultId
                 }
                 this.$store.dispatch('addKeepToVault', newVault)
                 this.tempVault = {
                     id: ''
                 }
+            },
+            addActiveKeep(id) {
+                this.$store.dispatch('getActiveKeep', id)
             }
         },
         mounted() {
@@ -96,6 +98,9 @@
             },
             vaults() {
                 return this.$store.state.vaults
+            },
+            activeKeep() {
+                return this.$store.state.activeKeep
             }
         }
     }
@@ -103,6 +108,10 @@
 <style scoped>
     .panel-heading {
         align-items: center;
+    }
+
+    .modal-dialog {
+        margin: 25vh auto 0px auto;
     }
 
     .panel-body {

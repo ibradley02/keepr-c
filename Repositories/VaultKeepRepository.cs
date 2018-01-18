@@ -9,23 +9,26 @@ using MySql.Data.MySqlClient;
 
 namespace keepr_c.Repositories
 {
-    public class VaultRepository : DbContext
+    public class VaultKeepRepository
     {
-        public VaultKeepRepository(IDbConnection db) : base(db)
+        private readonly IDbConnection _db;
+
+        public VaultKeepRepository(IDbConnection db)
         {
+            _db = db;
         }
 
         public VaultKeep Add(VaultKeep vaultkeep)
         {
-            int id = _db.ExecuteScalar<int>("INSERT INTO vaultkeeps (VaultId, KeepId, UserId)"
-                        + " VALUES(@VaultId, @KeepId, @UserId); SELECT LAST_INSERT_ID()", new
+            int id = _db.ExecuteScalar<int>("INSERT INTO vaultkeeps (UserId, VaultId, KeepId)"
+                        + $" VALUES(@UserId, @VaultId, @KeepId); SELECT LAST_INSERT_ID()", new
                         {
-                            VaultKeep.VaultId,
-                            VaultKeep.KeepId,
-                            VaultKeep.UserId
+                            vaultkeep.UserId, 
+                            vaultkeep.VaultId,
+                            vaultkeep.KeepId
                         });
-            VaultKeep.Id = id;
-            return VaultKeep;
+            vaultkeep.Id = id;
+            return vaultkeep;
         }
 
         public string FindByIdAndRemove(int keepId, int vaultId)

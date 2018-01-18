@@ -5,17 +5,30 @@ using System.Threading.Tasks;
 using keepr_c.Models;
 using keepr_c.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace keepr_c.Controllers
 {
     [Route("api/[controller]")]
     public class VaultKeepsController : Controller
     {
-        private readonly VaultKeepRepository db;
+        private readonly KeepRepository keepDb;
+        private readonly VaultRepository vaultDb;
+        private readonly VaultKeepRepository vaultKeepDb;
+        private readonly UserRepository userDb;
 
-        public VaultKeepsController(VaultKeepRepository repo)
+        public VaultKeepsController(KeepRepository KeepRepo, VaultRepository VaultRepo, VaultKeepRepository VaultKeepRepo, UserRepository UserRepo)
         {
-            db = repo;
+            keepDb = KeepRepo;
+            vaultDb = VaultRepo;
+            vaultKeepDb = VaultKeepRepo;
+            userDb = UserRepo;
+        }
+
+        [HttpGet("{id}")]
+        public IEnumerable<Keep> Get(int id)
+        {
+            return keepDb.GetByUserId(id);
         }
 
         [Authorize]
@@ -28,27 +41,16 @@ namespace keepr_c.Controllers
 
         [Authorize]
         [HttpPost("vaults/{vaultId}/keeps")]
-        public VaultKeep Post([FromBody]VaultKeep VaultKeep)
+        public VaultKeep Post([FromBody]VaultKeep vaultkeep)
         {
-            var user = HttpContext.User;
-            var id = user.Identity.Name;
-
-            UserReturnModel activeUser = null;
-
-            if (id != null)
-            {
-                activeUser = userDb.GetUserById(id);
-            }
-            VaultKeep.UserId = activeUser.Id;
-
-            return vaultKeepDb.Add(VaultKeep);
+            return vaultKeepDb.Add(vaultkeep);
         }
 
         [Authorize]
         [HttpDelete("vaults/{vaultId}/keeps/{keepId}")]
         public string Delete(int vaultId, int keepId)
         {
-            return vaultKeepDb.FindByRelatedIdsAndRemove(keepId, vaultId);
+            return vaultKeepDb.FindByIdAndRemove(keepId, vaultId);
         }
     }
 }

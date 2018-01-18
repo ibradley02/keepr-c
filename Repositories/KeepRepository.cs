@@ -25,6 +25,16 @@ namespace keepr_c.Repositories
             return _db.Query<Keep>($"SELECT * FROM keeps WHERE id = @id", id);
         }
 
+        public Keep GetById(int id)
+        {
+            return _db.QueryFirstOrDefault<Keep>($"SELECT * FROM keeps WHERE id = {id}", id);
+        }
+
+        public IEnumerable<Keep> GetByVaultId(int id)
+        {
+            return _db.Query<Keep>($"SELECT * FROM keeps WHERE id = @id", id);
+        }
+
         public Keep Add(Keep keep)
         {
             int id = _db.ExecuteScalar<int>("INSERT INTO keeps (Name, Image, Description, UserId, Tags)"

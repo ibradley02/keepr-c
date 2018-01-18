@@ -23,6 +23,7 @@ var store = new vuex.Store({
     state: {
         error: {},
         user: {},
+        activeKeep: {},
         vaults: [],
         keeps: []
     },
@@ -42,6 +43,9 @@ var store = new vuex.Store({
             } else {
                 state.vaults = vaults
             }
+        },
+        setActiveKeep(state, payload) {
+            state.activeKeep = payload
         }
     },
     actions: {
@@ -49,18 +53,16 @@ var store = new vuex.Store({
         login({ commit, dispatch }, payload) {
             auth.post('accounts/login', payload)
                 .then(res => {
-                    console.log(res)
                     commit('setUser', res.data)
+                    dispatch('getKeeps')
                 })
                 .catch(err => {
-                    console.log(err)
                     commit('handleError', err.message)
                 })
         },
         register({ commit, dispatch }, payload) {
             auth.post('accounts/register', payload)
                 .then(res => {
-                    console.log(res)
                     commit('setUser', res.data)
                 })
         },
@@ -78,7 +80,6 @@ var store = new vuex.Store({
         logout({ commit, dispatch }) {
             auth.delete('accounts/logout')
                 .then(res => {
-                    console.log(res)
                     commit('setUser', {})
                     router.push({ name: "Home" })
                 })
@@ -87,7 +88,6 @@ var store = new vuex.Store({
         createVault({ commit, dispatch }, payload) {
             api.post('vaults', payload)
                 .then(res => {
-                    console.log(res)
                     dispatch('getVaultsById', payload.userId)
                 })
                 .catch(err => {
@@ -106,7 +106,6 @@ var store = new vuex.Store({
         deleteVault({ commit, dispatch }, payload) {
             api.delete('vaults/' + payload.id)
                 .then(res => {
-                    console.log(res)
                     dispatch('getVaultsById', payload.userId)
                 })
                 .catch(err => {
@@ -116,7 +115,6 @@ var store = new vuex.Store({
         getVaults({ commit, dispatch }) {
             api('vaults/')
                 .then(res => {
-                    console.log(res)
                     commit('setVaults', res.data)
                 })
                 .catch(err => {
@@ -126,7 +124,6 @@ var store = new vuex.Store({
         getVaultsById({ commit, dispatch }, payload) {
             api('vaults/' + payload)
                 .then(res => {
-                    console.log(res)
                     commit('setVaults', res.data)
                 })
                 .catch(err => {
@@ -137,7 +134,6 @@ var store = new vuex.Store({
         createKeep({ commit, dispatch }, payload) {
             api.post('keeps', payload)
                 .then(res => {
-                    console.log(res)
                     dispatch('getKeeps')
                 })
                 .catch(err => {
@@ -150,7 +146,6 @@ var store = new vuex.Store({
         deleteKeep({ commit, dispatch }, payload) {
             api.delete('keeps/' + payload)
                 .then(res => {
-                    console.log(res)
                     dispatch('getKeeps')
                 })
                 .catch(err => {
@@ -160,8 +155,16 @@ var store = new vuex.Store({
         getKeeps({ commit, dispatch }) {
             api('keeps')
                 .then(res => {
-                    console.log(res)
                     commit('setKeeps', res.data)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+        getActiveKeep({ commit, dispatch }, payload) {
+            api('keeps/' + payload)
+                .then(res => {
+                    commit('setActiveKeep', res.data)
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -177,8 +180,8 @@ var store = new vuex.Store({
                     commit('handleError', err)
                 })
         },
-        addKeepToVault({ commit, dispatch }) {
-            api.post('vaults/' + payload.id + '/keeps', payload)
+        addKeepToVault({ commit, dispatch }, payload) {
+            api.post('/vaultkeeps/vaults/' + payload.VaultId + '/keeps', payload)
                 .then(res => {
                     console.log(res)
                 })
