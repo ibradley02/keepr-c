@@ -37,9 +37,9 @@ var store = new vuex.Store({
             state.keeps = keeps
         },
         setVaults(state, vaults) {
-            if(vaults.id){
+            if (vaults.id) {
                 state.vaults.push(vaults)
-            }else{
+            } else {
                 state.vaults = vaults
             }
         }
@@ -69,7 +69,7 @@ var store = new vuex.Store({
                 .then(res => {
                     commit('setUser', res.data)
                     dispatch('getVaultsById', res.data.id)
-                    router.push({ name: "Dashboard"})
+                    router.push({ name: "Dashboard" })
                 })
                 .catch(err => {
                     router.push({ name: "Home" })
@@ -88,7 +88,7 @@ var store = new vuex.Store({
             api.post('vaults', payload)
                 .then(res => {
                     console.log(res)
-                    commit('setVaults', res.data)
+                    dispatch('getVaultsById', payload.userId)
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -104,7 +104,6 @@ var store = new vuex.Store({
                 })
         },
         deleteVault({ commit, dispatch }, payload) {
-            debugger
             api.delete('vaults/' + payload.id)
                 .then(res => {
                     console.log(res)
@@ -168,10 +167,25 @@ var store = new vuex.Store({
                     commit('handleError', err)
                 })
         },
-        getKeepsByVault({ commit, dispatch }) {
-
-        }
         //VaultKeeps
+        getKeepsByVault({ commit, dispatch }) {
+            api('vaults/' + payload.id + '/keeps')
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+        addKeepToVault({ commit, dispatch }) {
+            api.post('vaults/' + payload.id + '/keeps', payload)
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        }
     }
 })
 

@@ -16,8 +16,7 @@
                 <button class="btn btn-lg" @click="Logout">Logout</button>
             </div>
             <div class="col-sm-4 login" v-else>
-                <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
-                <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#loginModal">Register</button>
+                <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#loginModal">Login / Register</button>
             </div>
         </nav>
     </div>

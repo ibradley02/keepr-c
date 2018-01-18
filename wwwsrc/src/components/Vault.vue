@@ -39,6 +39,9 @@
             vaults() {
                 return this.$store.state.vaults
             }
+        },
+        mounted() {
+            this.$store.dispatch('getVaultsById', this.user.id)
         }
     }
 </script>
