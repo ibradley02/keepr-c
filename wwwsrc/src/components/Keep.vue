@@ -83,10 +83,14 @@
                     KeepId: this.activeKeep.id,
                     VaultId: this.tempVault.vaultId
                 }
+                this.incrementKeepCount(newVault)
                 this.$store.dispatch('addKeepToVault', newVault)
                 this.tempVault = {
                     id: ''
                 }
+            },
+            incrementKeepCount(keep) {
+                
             },
             addActiveKeep(id) {
                 this.$store.dispatch('getActiveKeep', id)
