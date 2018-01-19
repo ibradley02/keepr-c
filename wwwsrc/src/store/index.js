@@ -25,6 +25,7 @@ var store = new vuex.Store({
         user: {},
         activeKeep: {},
         activeVault: {},
+        vaultKeeps: {},
         vaults: [],
         keeps: []
     },
@@ -48,9 +49,11 @@ var store = new vuex.Store({
         setActiveKeep(state, payload) {
             state.activeKeep = payload
         },
+        setVaultKeeps(state, payload) {
+            state.vaultKeeps = payload
+        },
         setActiveVault(state, payload) {
-            debugger
-            state.activeVault = payload
+            vue.set(state, "activeVault", payload)
         }
     },
     actions: {
@@ -127,19 +130,20 @@ var store = new vuex.Store({
                 })
         },
         getVaultsById({ commit, dispatch }, payload) {
-            api('vaults/' + payload)
+            api('vaults/users/' + payload)
                 .then(res => {
-                    console.log(res)
                     commit('setVaults', res.data)
                 })
                 .catch(err => {
                     commit('handleError', err)
                 })
         },
-        getActiveVault({ commit, dispatch }, payload) {
-            api('/vaultkeeps/vaults/' + payload)
+        getActiveVault({ commit, dispatch }, id) {
+            api('vaults/' + id)
                 .then(res => {
+                    console.log(res)
                     commit('setActiveVault', res.data)
+                    dispatch('getKeepsByVault', id)
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -186,10 +190,10 @@ var store = new vuex.Store({
                 })
         },
         //VaultKeeps
-        getKeepsByVault({ commit, dispatch }) {
-            api('vaults/' + payload.id + '/keeps')
+        getKeepsByVault({ commit, dispatch }, id) {
+            api('vaultkeeps/vaults/' + id + '/keeps')
                 .then(res => {
-                    console.log(res)
+                    commit('setVaultKeeps', res.data)
                 })
                 .catch(err => {
                     commit('handleError', err)

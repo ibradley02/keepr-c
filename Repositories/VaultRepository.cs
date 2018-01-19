@@ -20,9 +20,9 @@ namespace keepr_c.Repositories
             return _db.Query<Vault>("SELECT * FROM vaults");
         }
 
-        public Vault getById(int id)
+        public Vault GetById(int id)
         {
-            return _db.QueryFirstOrDefault<Vault>($"SELECT * FROM vaults WHERE userId = {id}", id);
+            return _db.QueryFirstOrDefault<Vault>($"SELECT * FROM vaults WHERE Id = {id}", id);
         }
 
         public IEnumerable<Vault> GetByUserId(int id)

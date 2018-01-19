@@ -32,7 +32,10 @@ namespace keepr_c.Repositories
 
         public IEnumerable<Keep> GetByVaultId(int id)
         {
-            return _db.Query<Keep>($"SELECT * FROM keeps WHERE id = @id", id);
+            return _db.Query<Keep>($@"
+            SELECT * FROM vaultkeeps vk
+            INNER JOIN keeps k ON k.id = vk.keepID
+            WHERE (vaultId = {id})" );
         }
 
         public Keep Add(Keep keep)

@@ -24,10 +24,16 @@ namespace keepr_c.Controllers
             return db.GetAll();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("users/{id}")]
         public IEnumerable<Vault> get(int id)
         {
             return db.GetByUserId(id);
+        }
+
+        [HttpGet("{id}")]
+        public Vault Get(int id)
+        {
+            return db.GetById(id);
         }
 
         [HttpPost]
