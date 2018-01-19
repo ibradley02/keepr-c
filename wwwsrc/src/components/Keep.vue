@@ -18,8 +18,9 @@
                     <div class="panel-footer" @mouseover="show.button = true" @mouseleave="show.button = false">
                         <div v-show="show.button">
                             <button class="btn btn-info" data-toggle="modal" data-target="#vaultKeepModal" @click="addActiveKeep(item.id)">Keep</button>
-                            <button class="btn btn-info" @click="incrementKeepCount(item.id)">View</button>
+                            <button class="btn btn-info" @click="incrementKeepCount(item)">View</button>
                         </div>
+                        <h5>Views: {{item.views}}</h5>
                         <h5>Tags:
                             <a>{{item.tags}}</a>
                         </h5>
@@ -89,8 +90,8 @@
                 }
             },
             incrementKeepCount(keep) {
-                debugger
-                dispatch('incrementKeepCount', keep)
+                keep.views++
+                this.$store.dispatch('incrementKeepCount', keep)
             },
             addActiveKeep(id) {
                 this.$store.dispatch('getActiveKeep', id)

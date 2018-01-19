@@ -203,6 +203,15 @@ var store = new vuex.Store({
                 .catch(err => {
                     commit('handleError', err)
                 })
+        },
+        incrementKeepCount({ commit, dispatch }, payload) {
+            api.put('/keeps/' + payload.id, payload)
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
         }
     }
 })

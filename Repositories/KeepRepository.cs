@@ -37,14 +37,15 @@ namespace keepr_c.Repositories
 
         public Keep Add(Keep keep)
         {
-            int id = _db.ExecuteScalar<int>("INSERT INTO keeps (Name, Image, Description, UserId, Tags)"
-                        + " VALUES(@Name, @Image, @Description, @UserId, @Tags); SELECT LAST_INSERT_ID()", new
+            int id = _db.ExecuteScalar<int>("INSERT INTO keeps (Name, Image, Description, UserId, Tags, Views)"
+                        + " VALUES(@Name, @Image, @Description, @UserId, @Tags, @Views); SELECT LAST_INSERT_ID()", new
                         {
                             keep.Name,
                             keep.Image,
                             keep.Description,
                             keep.UserId,
-                            keep.Tags
+                            keep.Tags,
+                            keep.Views,
                         });
             keep.Id = id;
             return keep;
@@ -53,9 +54,7 @@ namespace keepr_c.Repositories
         {
             return _db.QueryFirstOrDefault<Keep>($@"
                 UPDATE keeps SET  
-                    Name = @Name,
-                    Description = @Description,
-                    UserId = @UserId
+                    Views = @Views
                 WHERE Id = {id};
                 SELECT * FROM keeps WHERE id = {id};", keep);
         }
