@@ -6,7 +6,7 @@
                     <button class="pull-right" @click="deleteVault(item.id)">
                         <i class="fa fa-trash"></i>
                     </button>
-                    <h3>{{item.name}}</h3>
+                    <a @click="getActiveVault(item.id)">{{item.name}}</a>
                 </div>
                 <div class="panel-body">
                     <h5>{{item.description}}</h5>
@@ -30,6 +30,9 @@
                 };
                 this.$store.dispatch('deleteVault', update)
 
+            },
+            getActiveVault(id) {
+                this.$store.dispatch('getActiveVault', id)
             }
         },
         computed: {

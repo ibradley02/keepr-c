@@ -15,8 +15,12 @@
                         <img :src="item.image">
                         <h5>{{item.description}}</h5>
                     </div>
-                    <div class="panel-footer">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#vaultKeepModal" @click="addActiveKeep(item.id)">Keep</button>
+                    <div class="panel-footer" @mouseover="show.button = true" @mouseleave="show.button = false">
+                        <div v-show="show.button">
+                            <button class="btn btn-info">Share</button>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#vaultKeepModal" @click="addActiveKeep(item.id)">Keep</button>
+                            <button class="btn btn-info">View</button>
+                        </div>
                         <h5>Tags:
                             <a>{{item.tags}}</a>
                         </h5>
@@ -52,7 +56,6 @@
                         <button type="button" class="btn btn-default btn-danger col-sm-12" data-dismiss="modal">Close</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -64,6 +67,9 @@
             return {
                 tempVault: {
                     vaultId: ''
+                },
+                show: {
+                    button: true
                 }
             }
         },

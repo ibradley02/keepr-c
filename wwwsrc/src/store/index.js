@@ -24,6 +24,7 @@ var store = new vuex.Store({
         error: {},
         user: {},
         activeKeep: {},
+        activeVault: {},
         vaults: [],
         keeps: []
     },
@@ -46,6 +47,10 @@ var store = new vuex.Store({
         },
         setActiveKeep(state, payload) {
             state.activeKeep = payload
+        },
+        setActiveVault(state, payload) {
+            debugger
+            state.activeVault = payload
         }
     },
     actions: {
@@ -124,7 +129,17 @@ var store = new vuex.Store({
         getVaultsById({ commit, dispatch }, payload) {
             api('vaults/' + payload)
                 .then(res => {
+                    console.log(res)
                     commit('setVaults', res.data)
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+        getActiveVault({ commit, dispatch }, payload) {
+            api('/vaultkeeps/vaults/' + payload)
+                .then(res => {
+                    commit('setActiveVault', res.data)
                 })
                 .catch(err => {
                     commit('handleError', err)

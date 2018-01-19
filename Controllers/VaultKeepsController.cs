@@ -25,10 +25,16 @@ namespace keepr_c.Controllers
             userDb = UserRepo;
         }
 
-        [HttpGet("{id}")]
-        public IEnumerable<Keep> Get(int id)
+        [HttpGet("keeps/{id}")]
+        public IEnumerable<Keep> GetKeepsByUser(int id)
         {
             return keepDb.GetByUserId(id);
+        }
+
+        [HttpGet("vaults/{id}")]
+        public IEnumerable<Vault> GetVaultsByUser(int id)
+        {
+            return vaultDb.GetByUserId(id);
         }
 
         [Authorize]
